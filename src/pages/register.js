@@ -13,6 +13,9 @@ export default function renderRegisterPage() {
     const titulo = formulario.querySelector('h1');
     titulo.textContent = "Cadastre-se";
 
+    const btnRegister = formulario.querySelector('button');
+    btnRegister.textContent = "Criar conta";
+
     //Seleciono o elemento form que está presente em ./components/Form.js
     const contentForm = formulario.querySelector('form');
 
@@ -40,8 +43,7 @@ export default function renderRegisterPage() {
     contentForm.insertBefore(confSenha, contentForm.children[3]);
 
 
-    const btnRegister = formulario.querySelector('button');
-    btnRegister.textContent = "Criar conta";
+    
 
 
 }
