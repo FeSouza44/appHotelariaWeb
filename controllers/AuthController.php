@@ -1,7 +1,6 @@
 <?php
-
-require_once "../models/UserModel.php";
-require_once "../helper/response.php";
+require_once "models/UserModel.php";
+require_once "PasswordController.php";
 
 class AuthController
 {

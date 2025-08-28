@@ -1,7 +1,7 @@
 <?php
+require_once __DIR__ ."/../controllers/PasswordController.php";
 class UserModel
 {
-
     public static function validarUsuario($conn, $email, $password)
     {
         $sql = "SELECT usuarios.id, usuarios.nome, usuarios.email, usuarios.senha ,cargos.nome 
@@ -12,8 +12,8 @@ class UserModel
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($user = $result->fetch_assoc()) {
-            if ($user['senha'] === $password) {
+        if ($user = $result->fetch_assoc()){
+            if (PasswordController::verifyHash($password, $user["password"])) {
                 unset($user['senha']);
                 return $user;
             }
