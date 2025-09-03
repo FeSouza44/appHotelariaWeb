@@ -1,6 +1,7 @@
 <?php
 require_once "models/UserModel.php";
 require_once "PasswordController.php";
+require_once "/../helpers/token_jwt.php";
 
 class AuthController
 {
@@ -14,13 +15,8 @@ class AuthController
         }
         $user = UserModel::validarUsuario($conn, $data['email'], $data['password']);
         if ($user) {
-            return jsonResponse([
-                "id"=>$user['id'],
-                "nome"=>$user['nome'],
-                "email"=>$user['email'],
-                "cargo"=>$user['cargos']
-
-            ],);
+            $token = createToken($user);
+            return jsonResponse(["token"=> $token]);
 
         } else {
             return jsonResponse(["resposta" => "deu bosta"]);

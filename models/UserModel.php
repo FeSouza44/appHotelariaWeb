@@ -13,7 +13,7 @@ class UserModel
         $result = $stmt->get_result();
 
         if ($user = $result->fetch_assoc()){
-            if (PasswordController::verifyHash($password, $user["password"])) {
+            if (PasswordController::verifyHash($password, $user["senha"])) {
                 unset($user['senha']);
                 return $user;
             }
