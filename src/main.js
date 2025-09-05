@@ -2,15 +2,10 @@ import renderLoginPage from "./pages/login.js";
 import renderRegisterPage from "./pages/register.js";
 import renderHomePage from "./pages/home.js";
 
-document.addEventListener('DOMContentLoaded', () => { 
-   renderRegisterPage();
-   //Novas Páginas aqui adicionadas conforme desenvolvidas
-});
 const routes = {
    "/login": renderLoginPage,
    "/register": renderRegisterPage,
    "/home": renderHomePage
-
 }
 
 function getPath(){

@@ -1,8 +1,10 @@
 import Navbar from "../components/Navbar.js";
 import HeroSlide from "../components/HeroSlide.js";
+import Footer from "../components/Footer.js";
+
 
 export default function renderHomePage(){
-    const nav = document.createElement('navbar');
+    const nav = document.getElementById('navbar');
     nav.innerHTML = '';
 
     const navbar = Navbar();
@@ -13,4 +15,11 @@ export default function renderHomePage(){
 
     const hero = HeroSlide();
     divRoot.appendChild(hero);
+
+    const foot = document.getElementById('footer');
+    foot.innerHTML ='';
+
+    const footer = Footer();
+    foot.appendChild(footer);
+    
 }

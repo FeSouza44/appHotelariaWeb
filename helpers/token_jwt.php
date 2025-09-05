@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ ."/jwt/jwt_include.php";
 
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -21,7 +22,7 @@ use Firebase\JWT\Key;
             return $decode->sub;
 
     } catch (Exception $error) {
-    return 'não grita';
+    return false;
     }
 }
 ?>
