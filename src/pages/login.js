@@ -32,8 +32,12 @@ export default function renderLoginPage() {
 
     try {
         const result = await loginRequest(email, senha);
-        console.log("Login realizado com sucesso!");
-        saveToken(result.token);
+        if(result.ok){
+            console.log("Login realizado com sucesso!", result);
+            saveToken(result.token);
+        }else{
+            console.log("Login invalido");
+        }
     } catch {
         console.log("Erro 100% Esperado!");
     }

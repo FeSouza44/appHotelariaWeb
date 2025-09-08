@@ -44,3 +44,15 @@ a {
     color: #4b0505;
     font-size: 16px;
 }
+
+.heroContainer{
+    width: 80% !important;
+    max-height: 800px !important;
+    overflow: hidden;
+}
+
+.heroContainer .carousel-item img{
+    width: 100% !important;
+    height: 700px; 
+    object-fit: cover;
+}
