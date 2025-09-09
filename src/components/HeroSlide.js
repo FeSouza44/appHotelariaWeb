@@ -2,8 +2,11 @@
 export default function HeroSlide(){
   
     const heroSlide = document.createElement('div');
-    heroSlide.className = 'heroContainer';
+    heroSlide.className = 'heroSlide w-100 d-flex justify-content-center';
+    heroSlide.style.backgroundColor = "red";
     heroSlide.innerHTML = `
+
+<div class = "hero-frame w-100">
     <div id="carouselExample" class="carousel slide">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -24,7 +27,8 @@ export default function HeroSlide(){
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
-</div>`
-
+  </div>
+</div>
+`
     return heroSlide;
 }

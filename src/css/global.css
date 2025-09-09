@@ -45,14 +45,24 @@ a {
     font-size: 16px;
 }
 
-.heroContainer{
-    width: 80% !important;
-    max-height: 800px !important;
+.heroSlide{
+    height: 70vh;
+    margin: 0 auto;
     overflow: hidden;
+
 }
 
-.heroContainer .carousel-item img{
-    width: 100% !important;
-    height: 700px; 
-    object-fit: cover;
+.heroSlide-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
+
+
+
+@media (max-width: 576px){
+    .heroSlide-frame{
+        height:50vh;
+    }
+} 
