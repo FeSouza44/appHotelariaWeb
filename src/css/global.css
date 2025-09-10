@@ -59,6 +59,9 @@ a {
   object-position: center;
 }
 
+.card{
+    align-items: center;
+}
 
 
 @media (max-width: 576px){

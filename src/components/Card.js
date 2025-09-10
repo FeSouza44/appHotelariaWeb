@@ -1,6 +1,7 @@
 export default function Card(){
   
-    const roomCard = document.getElementById('cards')
+    const roomCard = document.getElementById('cards');
+    roomCard.className = 'card'
     roomCard.innerHTML = `
 <div class="card" style="width: 18rem;">
   <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">

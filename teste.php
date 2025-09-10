@@ -13,9 +13,8 @@ $data = [
     "preco" => 2500,
     "disponivel" => 1
 ];
-    // QuartosController::create($conn, $data);
-    // QuartosController::delete($conn, 5, $data);
-
+    // QuartosController::getAll($conn);
+    // QuartosController::getById($conn, 4);
 
 
 // AuthController::login($conn,$data);
