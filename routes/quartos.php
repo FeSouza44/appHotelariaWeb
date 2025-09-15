@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 }else{
     QuartosController::getAll($conn);        
 
-}elseif($_SERVER['REQUEST_METHOD'] === "DELTE")
+}elseif($_SERVER['REQUEST_METHOD'] === "DELETE")
     if(isset($id)){
         QuartosController::delete($conn, $id);
     } else{

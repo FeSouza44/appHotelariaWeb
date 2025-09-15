@@ -8,7 +8,7 @@ export default function HeroSlide(){
 
 <div class = "hero-frame w-100">
     <div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
+  <div class="carousel-inner shadow">
     <div class="carousel-item active">
       <img src="public/assets/images/quartoHotel.jpg" class="d-block w-100" alt="...">
     </div>

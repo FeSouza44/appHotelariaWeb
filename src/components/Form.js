@@ -6,8 +6,11 @@ export default function Form() {
     container.className = 'card p-4 shadow-lg';
     container.style.width = '100%';
     container.style.maxWidth = '400px';
+    container.style.alignItems = 'center';
+
+    container.style.margin = '0 auto';
     divRoot.appendChild(container);
-    
+
     const titulo = document.createElement('h1');
     titulo.textContent = 'Faça seu login';
     titulo.className = 'titulo';
@@ -15,6 +18,7 @@ export default function Form() {
     formulario.className = 'd-flex flex-column';
     const email = document.createElement('input');
     email.type = 'email';
+
     email.placeholder = "Digite seu e-mail";
     formulario.appendChild(email);
     const password = document.createElement('input');
@@ -30,6 +34,6 @@ export default function Form() {
 
     container.appendChild(titulo);
     container.appendChild(formulario);
-    
+
     return divRoot;
 }
