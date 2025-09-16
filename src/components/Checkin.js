@@ -1,28 +1,42 @@
-export default function Checkin(){
+export default function DateSelector(){
+    const DivRoot = document.getElementById('root');
+    DivRoot.innerHTML = '';
 
-    const chekinDiv = document.createElement('div');
-    chekinDiv.className = 'dateSelector';
-    chekinDiv.innerHTML = `
-<div>
-    <label for="option1">Opção 1:</label>
-    <select id="option1" name="option1">        
-    </select>
-</div>
+    const container = document.createElement('div');
+    container.className = 'DateSelector';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'row';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
+    container.style.gap = '10px';
 
-<div>
-    <label for="option2">Opção 2:</label>
-    <select id="option2" name="option2">
+
+    const inputDataCheck = document.createElement('input');
+    inputDataCheck.type = 'label';
+    inputDataCheck.placeholder = 'Data de check-out';
+    inputDataCheck.className = 'DataCheck';
     
-    </select>
-</div>
+    
+    const inputDataCheckIn = document.createElement('input');
+    inputDataCheckIn.type = 'label';
+    inputDataCheckIn.placeholder = 'Data de check-in';
+    inputDataCheckIn.className = 'DataCheck';
 
-<div>
-    <label for="option3">Opção 3:</label>
-    <select id="option3" name="option3">
-        
-    </select>
-</div>
-    `
-    return chekinDiv;
+    const hospedes = document.createElement('input');
+    hospedes.type = 'label';
+    hospedes.placeholder = 'Hospedes';
+    hospedes.className = 'DataCheck';
 
+    const pesquisar = document.createElement('button');
+    pesquisar.type = 'button';
+    pesquisar.placeholder = 'Pesquisar';
+    pesquisar.className = 'pesquisarButton';
+
+
+    container.appendChild(inputDataCheck);
+    container.appendChild(inputDataCheckIn);
+    container.appendChild(hospedes);
+    container.appendChild(pesquisar);
+
+    return container;
 }
