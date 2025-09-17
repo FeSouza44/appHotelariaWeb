@@ -29,9 +29,8 @@ export default function DateSelector(){
 
     const pesquisar = document.createElement('button');
     pesquisar.type = 'button';
-    pesquisar.placeholder = 'Pesquisar';
-    pesquisar.className = 'pesquisarButton';
-
+    pesquisar.className = 'btnCheckin';
+    pesquisar.innerText = "Pesquisar";
 
     container.appendChild(inputDataCheck);
     container.appendChild(inputDataCheckIn);

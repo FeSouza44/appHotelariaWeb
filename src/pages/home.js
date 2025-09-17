@@ -1,9 +1,8 @@
 import Navbar from "../components/Navbar.js";
 import HeroSlide from "../components/HeroSlide.js";
 import Footer from "../components/Footer.js";
-import Card from "../components/RoomCard.js";
+import card from "../components/card.js";
 import Checkin from "../components/Checkin.js";
-import RoomCard from "../components/RoomCard.js";
 
 export default function renderHomePage(){
     const divRoot = document.getElementById('root');
@@ -27,8 +26,8 @@ export default function renderHomePage(){
     cardsGroup.className = "cards";
 
     for (var i=0; i < 3; i++) {
-        const cards = RoomCard();
-        cards.className = "uniqueCard";
+        const cards = card();
+        cards.className= "uniqueCard";
         cardsGroup.appendChild(cards);
     }
 
