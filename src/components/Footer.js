@@ -1,6 +1,7 @@
 export default function Footer(){
   
     const footer = document.createElement('footer');
+    footer.className = "footer";
     footer.innerHTML = `<footer class="text-center text-lg-start bg-body-tertiary text-muted">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
