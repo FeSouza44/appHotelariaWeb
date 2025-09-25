@@ -4,6 +4,7 @@
     class QuartosController{
         public static function create($conn, $data){
             $result = QuartosModel::create($conn, $data);
+            $validar = 
             if($result){
                 return jsonResponse(['message'=> 'Quarto criado com sucesso']);
             }else{
@@ -23,6 +24,7 @@
 
         public static function delete($conn, $id){
             $result = QuartosModel::delete($conn, $id);
+
             if($result){
                 return jsonResponse(['message'=> 'Quarto deletado com sucesso']);
             }else{
@@ -38,5 +40,14 @@
                 return jsonResponse(['message'=> 'Deu merda'], 400);
             }
         }
+        public static function searchDisp($conn, $data){
+            $result = QuartosModel:searchDisp($conn, $data);
+            if($result){
+                return jsonResponse(['message'=> 'Quartos Disponíveis:']);
+            }else{
+                return jsonResponse(['message'=> 'Deu merda'], 400);
+            }
+        }
+
 }
 ?>

@@ -49,5 +49,25 @@ class QuartosModel{
         );
         return $stmt->execute();
     }
+
+    public static function disponivel($conn, $data  ){
+        $sql "SELECT quartos*,
+        (quartos.qtd_cama_casal * 2 + quartos.qtd_cama_solteiro) AS capacidade
+        FROM quartos WHERE (quartos.qtd_cama_casal * 2 + quartos.qtd_cama_solteiro) >= ?
+        AND quartos.id NOT IN (
+        SELECT reservas.quarto_id
+        FROM reservas
+        WHERE reservas.inicio < ?
+        AND reservas.fim > ? 
+    )";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi",
+        $fim,
+        $inicio,
+        $qtd
+    );
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+    } 
 }
 ?>
