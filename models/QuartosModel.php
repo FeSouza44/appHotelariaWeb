@@ -51,15 +51,27 @@ class QuartosModel{
     }
 
     public static function disponivel($conn, $data  ){
-        $sql "SELECT quartos*,
-        (quartos.qtd_cama_casal * 2 + quartos.qtd_cama_solteiro) AS capacidade
-        FROM quartos WHERE (quartos.qtd_cama_casal * 2 + quartos.qtd_cama_solteiro) >= ?
-        AND quartos.id NOT IN (
-        SELECT reservas.quarto_id
-        FROM reservas
-        WHERE reservas.inicio < ?
-        AND reservas.fim > ? 
-    )";
+        $sql "SELECT
+        q.id,
+        q.nome,
+        q.qtd_cama_casal,
+        q.qtd_cama_solteiro,
+        q.preco,
+        q.disponivel
+    FROM
+        quartos q
+    WHERE
+        quartos.id NOT IN (
+            SELECT
+            r.fk_quartos
+            FROM
+            reservas r
+            WHERE
+            (r.fim > ? AND r.inicio < ?)
+        )
+    AND q.disponivel = true
+    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;
+     ";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssi",
         $fim,

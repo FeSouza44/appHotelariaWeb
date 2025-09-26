@@ -2,9 +2,11 @@
     require_once __DIR__ . "/../models/QuartosModel.php";
 
     class QuartosController{
+
+        public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco'];
+
         public static function create($conn, $data){
             $result = QuartosModel::create($conn, $data);
-            $validar = 
             if($result){
                 return jsonResponse(['message'=> 'Quarto criado com sucesso']);
             }else{
@@ -40,8 +42,8 @@
                 return jsonResponse(['message'=> 'Deu merda'], 400);
             }
         }
-        public static function searchDisp($conn, $data){
-            $result = QuartosModel:searchDisp($conn, $data);
+        public static function disponivel($conn, $data){
+            $result = QuartosModel::disponivel($conn, $data);
             if($result){
                 return jsonResponse(['message'=> 'Quartos Disponíveis:']);
             }else{

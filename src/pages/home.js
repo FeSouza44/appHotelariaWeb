@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar.js";
 import HeroSlide from "../components/HeroSlide.js";
 import Footer from "../components/Footer.js";
-import card from "src/components/Card.js";
+import card from "../components/Card.js";
 import Checkin from "../components/DateSelector.js";
 
 export default function renderHomePage(){
@@ -24,7 +24,7 @@ export default function renderHomePage(){
     const cardsGroup = document.createElement('div');
     cardsGroup.className = "cards";
 
-    for (let i=0; i < 5; i++) {
+    for (let i=0; i < 3; i++) {
         const cards = card(i);
         cardsGroup.appendChild(cards);
     }

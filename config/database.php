@@ -1,5 +1,5 @@
 <?php
-require_once "config/config.php";
+require_once "config.php";
 
 $erroDB = false;
 //-> modo de acessar um objr

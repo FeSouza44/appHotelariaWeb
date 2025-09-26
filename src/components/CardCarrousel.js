@@ -1,9 +1,6 @@
-
-export default function HeroSlide(){
-  
-    const heroSlide = document.createElement('div');
-    heroSlide.className = 'heroSlide w-100 d-flex justify-content-center';
-    heroSlide.innerHTML = `
+export function CarrouselCard(){
+    const divCarrouselCard = document.createElement('div');
+    divCarrouselCard.innerHTML = `
     <div class = "heroContainer-frame w-100">
 
     <div id="carouselExampleIndicators" class="carousel slide">
@@ -33,7 +30,4 @@ export default function HeroSlide(){
   </button>
   </div>
 </div>`;
-
-
-    return heroSlide;
 }
