@@ -42,8 +42,8 @@
                 return jsonResponse(['message'=> 'Deu merda'], 400);
             }
         }
-        public static function disponivel($conn, $data){
-            $result = QuartosModel::disponivel($conn, $data);
+        public static function disponivel($conn, $inicio, $fim, $qtd){
+            $result = QuartosModel::disponivel($conn, $inicio, $fim, $qtd);
             if($result){
                 return jsonResponse(['message'=> 'Quartos Disponíveis:']);
             }else{

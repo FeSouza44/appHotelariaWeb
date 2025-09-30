@@ -50,8 +50,8 @@ class QuartosModel{
         return $stmt->execute();
     }
 
-    public static function disponivel($conn, $data  ){
-        $sql "SELECT
+    public static function disponivel($conn, $fim, $inicio, $qtd  ){
+        $sql = "SELECT
         q.id,
         q.nome,
         q.qtd_cama_casal,
@@ -61,22 +61,20 @@ class QuartosModel{
     FROM
         quartos q
     WHERE
-        quartos.id NOT IN (
-            SELECT
-            r.fk_quartos
-            FROM
-            reservas r
-            WHERE
-            (r.fim > ? AND r.inicio < ?)
-        )
+    quartos.id NOT IN (
+        SELECT
+        r.fk_quartos
+        FROM
+        reservas r
+        WHERE
+        (r.fim > ? AND r.inicio < ?))
     AND q.disponivel = true
-    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;
-     ";
-        $stmt = $conn->prepare($sql);
+    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;";
+    $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssi",
-        $fim,
-        $inicio,
-        $qtd
+            $fim,
+            $inicio,
+            $qtd
     );
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);

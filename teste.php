@@ -12,5 +12,5 @@ $data = [
 
 $inicio = $data['inicio'];
 $fim = $data['fim'];
-RoomController::getByAvaible($conn, $inicio, $fim);
+QuartosController::disponivel($conn,$inicio, $fim, $qtdPessoas);
 ?>
