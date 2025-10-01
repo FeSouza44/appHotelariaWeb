@@ -2,17 +2,14 @@
 require_once __DIR__ ."/../controllers/PasswordController.php";
 
 class ClientesModel{
- public static function create($conn, $data) {
-        $sql = "INSERT INTO clientes (nome, cpf, telefone, email, senha) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssss",
-            $data["nome"],
-            $data["cpf"],
-            $data["telefone"],
-            $data["email"],
-            $data["senha"]
-        );
-        return $stmt->execute();
+  public static function create($conn, $data) {
+        $data['senha'] = PasswordController::generateHash($data['senha']);
+        $result = ClientModel::create($conn, $data);
+        if ($result) {
+            return jsonResponse(['message' => 'Cliente criado com sucesso']);
+        } else {
+            return jsonResponse(['message' => 'Erro inesperado'], 400);
+        }
     }
 
     public static function getAll($conn) {
@@ -50,8 +47,7 @@ class ClientesModel{
         return $stmt->execute();
     }
 
-
-
+    
 
     public static function validateClient($conn, $email, $password){
         $sql = "SELECT
@@ -80,4 +76,6 @@ class ClientesModel{
         return false;
     }
 }
+}
+
 ?>

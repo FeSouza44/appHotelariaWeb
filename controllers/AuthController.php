@@ -5,7 +5,7 @@
     require_once __DIR__ . "/../helpers/token_jwt.php";
 
     class AuthController{
-        public static function login($conn, $data){
+        public static function loginUsuario($conn, $data){
 
             $data['email'] = trim($data['email']);
             $data['password'] = trim($data['password']);
@@ -31,6 +31,18 @@
             }
 
         }
-    }
 
+    public static function loginCliente($conn, $data){
+        $data['email'] = trim($data['email']);
+        $data['senha'] = trim($data['senha']);
+
+        // Confirma se tem algum campo vazio
+        if (empty($data['email']) || empty($data['senha'])){
+            return jsonResponse([
+                "status"=>"erro",
+                "message"=>"Preencha todos os campos!"
+            ], 401);
+        }
+    }
+    }
 ?>

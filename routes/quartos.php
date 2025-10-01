@@ -2,9 +2,15 @@
 require_once __DIR__ . "/../controllers/QuartosController.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    
     $data = json_decode(file_get_contents('php://input'),true);
     $id = $data['id'] ?? null;;
-
+    
+    if(isset($data['inicio']) && isset($data['fim'])) {
+            $inicio = $data['inicio'];
+            $fim = $data['fim'];
+            $qtdPessoas = $data['qtdPessoas'];
+            RoomController::disponivel($conn, $inicio, $fim, $qtdPessoas);
     if(isset($id)) {
         QuartosController::getById($conn, $id);
         
@@ -15,11 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 }
 elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
-    if(isset($data['inicio']) && isset($data['fim'])) {
-            $inicio = $data['inicio'];
-            $fim = $data['fim'];
-            $qtdPessoas = $data['qtdPessoas'];
-            RoomController::disponivel($conn, $inicio, $fim, $qtdPessoas);
+    
 
 }elseif (isset($data['nome'])){
         QuartosController::create($conn, $data);
