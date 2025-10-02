@@ -1,35 +1,20 @@
 <?php 
 
+require_once __DIR__ ."/../controllers/PasswordController.php";
 class ClientModel{
 
-    public static function ClientValidation($conn, $email, $password) {
-            $sql = "SELECT clientes.id, clientes.email, clientes.senha, clientes.nome, clientes.fk_cargo AS cargo FROM clientes WHERE clientes.email = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-    
-            if($client = $result->fetch_assoc()) {
-            
-                if(PasswordController::validateHash($password, $client['senha'])) {
-                    unset($client['senha']);
-                    return $client;  
-                }
-
-            return false;
-        }
-    }
 
 public static function create($conn, $data) {
-    $sql = "INSERT INTO clientes"+"(nome, email, senha, cpf, telefone) VALUES(?, ?, ?, ?);";
+    $sql = "INSERT INTO clientes (nome, email, senha, cpf, telefone) VALUES(?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt-> bind_param("sssssi", 
-    $data['nome'],
-    $data['email'],
-    $data['senha'],
-    $data['cpf'],
-    $data['senha']
+    $stmt->bind_param("sssss", 
+        $data['nome'], 
+        $data['email'],
+        $data['senha'],
+        $data['cpf'], 
+        $data['telefone']
 );
+    return $stmt->execute();
 }
 
 public static function getAll($conn) {
@@ -68,6 +53,33 @@ public static function update($conn, $id, $data) {
     );
     return $stmt->execute();
 }
+
+    public static function validateClient($conn, $email, $password){
+        $sql = "SELECT
+                clientes.id,
+                clientes.nome,
+                clientes.email,
+                clientes.senha,
+                cargos.nome AS cargo 
+                FROM clientes
+                INNER JOIN cargos
+                ON cargos.id = clientes.cargo_id
+                WHERE clientes.email = ?
+                ;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($user = $result->fetch_assoc()){
+            if(PasswordController::validateHash($password, $user['senha'])){
+                unset($user['senha']);
+                return $user;
+            }
+        }
+        return false;
+    }
 }
 
 ?>

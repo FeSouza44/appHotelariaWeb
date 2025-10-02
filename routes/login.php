@@ -1,17 +1,28 @@
 <?php
 require_once __DIR__ . "/../controllers/AuthController.php";
+require_once "helpers/token_jwt.php";
 
-if($_SERVER['REQUEST_METHOD'] === "POST"){
-  $opcao = $segments[2] ?? null;
+
+if ($_SERVER['REQUEST_METHOD'] === "POST"){
+    $opcao = $segments[2] ?? null;
     $data = json_decode( file_get_contents('php://input'), true );
-  if($opcao == "cliente"{//login do cliente
+  
+  if($opcao == "cliente"){//login do cliente
     AuthController::loginCliente($conn, $data);
-  })
-  if($opcao == "employee"){
+  }
+  if ($opcao == "employee"){
     AuthController::loginUsuario($conn,$data);
   }
-}else{
+  else{
     jsonResponse(['status'=>'erro','message'=>'Método não permitido'],405);
+  } 
+  
 }
+  elseif($_SERVER['REQUEST_METHOD'] === "PUT"){
     
+    jsonResponse(['message'=>$headers], 200);
+}
+else{
+  jsonResponse(['status'=>'erro','mesage'=>'Método não permitido'], 405);
+}
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once "config/database.php";
 require_once "helpers/response.php";
+require_once "helpers/token_jwt.php";
  
 if ($erroDB) {
     echo "erro na conexão";
@@ -13,7 +14,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $baseFolder = strtolower(basename(dirname(__FILE__)));
 $uri = str_replace("/$baseFolder", "", $uri);
 $segments = explode("/", trim($uri, "/"));
- 
 $route = $segments[0] ?? null;
 $subRoute = $segments[1] ?? null;
  
@@ -27,7 +27,7 @@ if ($route != "api"){
  
 elseif ($route === "api") {
     if (in_array($subRoute, ["login", "quartos", "clientes", "adiconais", "pedidos", "reservas", "usuario"])){
-        require "routes/${subRoute}.php";
+        require "routes/${subRoute}.php";   
     } else {
         return jsonResponse(['message' => 'rota da API não encontrada'], 404);
     }

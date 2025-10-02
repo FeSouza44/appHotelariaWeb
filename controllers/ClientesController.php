@@ -1,12 +1,22 @@
 <?php 
 require_once __DIR__ ."/../controllers/PasswordController.php";
+require_once __DIR__ ."/../models/ClientModel.php";
+require_once __DIR__ ."/../helpers/token_jwt.php";
+require_once __DIR__ ."/../controllers/PasswordController.php";
 
-class ClientesModel{
-  public static function create($conn, $data) {
-        $data['senha'] = PasswordController::generateHash($data['senha']);
+
+class ClientesController{
+
+    public static function create($conn, $data) {
+        $login = [
+            "email" => $data['email'],
+            "password" => $data['password'],
+        ];
+
+        $data['password'] = PasswordController::generateHash($data['password']);
         $result = ClientModel::create($conn, $data);
         if ($result) {
-            return jsonResponse(['message' => 'Cliente criado com sucesso']);
+            AuthController::loginClient($conn, $login);
         } else {
             return jsonResponse(['message' => 'Erro inesperado'], 400);
         }
@@ -46,36 +56,8 @@ class ClientesModel{
         );
         return $stmt->execute();
     }
+  
 
-    
-
-    public static function validateClient($conn, $email, $password){
-        $sql = "SELECT
-                clientes.id,
-                clientes.nome,
-                clientes.email,
-                clientes.senha,
-                cargos.nome AS cargo 
-                FROM clientes
-                INNER JOIN cargos
-                ON cargos.id = clientes.cargo_id
-                WHERE clientes.email = ?
-                ;";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($user = $result->fetch_assoc()){
-            if(PasswordController::validateHash($password, $user['senha'])){
-                unset($user['senha']);
-                return $user;
-            }
-        }
-        return false;
-    }
-}
 }
 
 ?>
