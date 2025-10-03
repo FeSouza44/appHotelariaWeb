@@ -58,18 +58,18 @@ class QuartosModel{
         q.qtd_cama_solteiro,
         q.preco,
         q.disponivel
-    FROM
-        quartos q
-    WHERE
-    quartos.id NOT IN (
-        SELECT
-        r.fk_quartos
         FROM
-        reservas r
+        quartos q
         WHERE
-        (r.fim > ? AND r.inicio < ?))
-    AND q.disponivel = true
-    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= ?;";
+        id NOT IN (
+        SELECT
+        reservas.quarto_id
+        FROM
+        reservas 
+        WHERE
+        (reservas.fim > ? AND reservas.inicio < ?)
+    AND q.disponivel = 1
+    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= 3";
     $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssi",
             $fim,

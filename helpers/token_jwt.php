@@ -25,4 +25,17 @@ use Firebase\JWT\Key;
     return false;
     }
 }
+function validateTokenAPI()
+{
+    $headers = getallheaders();
+    if (!isset($headers["Authorization"])) {
+        jsonResponse(['message' => 'Token Ausente'], 401);
+        exit;
+    }
+    $token = str_replace("Bearer ", "", $headers['Authorization']);
+    if(!validateToken($token)){
+        jsonResponse(['message' => 'Token Invalido'], 401);
+        exit;
+    }
+}
 ?>

@@ -2,8 +2,8 @@ import { loginRequest, saveToken } from "../api/authAPI.js";
 import Form from "../components/Form.js";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
-
 export default function renderLoginPage() {
+
     const nav = document.getElementById('navbar');
     nav.innerHTML = '';
 
@@ -20,30 +20,30 @@ export default function renderLoginPage() {
 
     const contentForms = formulario.querySelector('form')
 
-    const inputEmail = contentForms.querySelector('input[type="email"]');
-    const inputSenha = contentForms.querySelector('input[type="password"]');
+    const email = contentForms.querySelector('input[type="email"]');
+    const senha = contentForms.querySelector('input[type="password"]');
     // const btn = contentForms.querySelector('button[type"submit"]');
 
     //Monitora o clique no botão para acionar um evento de submeter os dados do formulario
-    contentForms.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = inputEmail.value.trim();
-    const senha = inputSenha.value.trim();
+    contentForms.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
 
-    try {
-        const result = await loginRequest(email, senha);
-        if(result.ok){
-            console.log("Login realizado com sucesso!", result);
-            saveToken(result.token);
-        }else{
-            console.log("Login invalido");
+        const emailValue = email.value.trim();
+        const senhaValue = senha.value.trim();
+        try {
+            const result = await loginRequest(emailValue, senhaValue);
+            if (result.ok){
+                console.log("login realizado com sucesso", result);
+                saveToken(result.token);
+                // Redireciona para a página home
+                window.location.pathname = "estudo_php/home";
+            }else{
+                console.log('login invalido!');
+            }
+        } catch {
+            console.log("Erro Inesperado!");
         }
-    } catch {
-        console.log("Erro 100% Esperado!");
-    }
-    
-
-});
+    });
 
     const linkVoltar = document.createElement('a');
 

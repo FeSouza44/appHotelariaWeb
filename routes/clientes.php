@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../controllers/ClientesController.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    $id = $segments[2] ?? null;q
+    $id = $segments[2] ?? null;
 
     if (isset($id)) {
         ClientesController::getById($conn, $id);
@@ -13,13 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
-    ClientesController::($conn, $data);
+    ClientesController::create($conn, $data);
 }
 
 elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ) {
     $data = json_decode( file_get_contents('php://input'), true );
     $id = $data['id'] ?? null;
-    ClientesController::update($conn, $id, $data);
+    ClientesController::update($conn, $id, $data)
+    ;
 }
 
 elseif ($_SERVER['REQUEST_METHOD'] === "DELETE") {

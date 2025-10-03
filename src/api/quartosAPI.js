@@ -1,6 +1,6 @@
 import { getToken } from "./authAPI";
 
-export async function listAllRoomsRequest() {
+export async function listAllAvailableRoomsRequest() {
     
     const token = getToken();
     
@@ -14,6 +14,7 @@ export async function listAllRoomsRequest() {
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
+        
         credentials: "same-origin"
     })
     

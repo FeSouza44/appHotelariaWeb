@@ -2,7 +2,7 @@
 require_once __DIR__ ."/../controllers/PasswordController.php";
 require_once __DIR__ ."/../models/ClientModel.php";
 require_once __DIR__ ."/../helpers/token_jwt.php";
-require_once __DIR__ ."/../controllers/PasswordController.php";
+require_once __DIR__ ."/../controllers/AuthController.php";
 
 
 class ClientesController{
@@ -10,13 +10,13 @@ class ClientesController{
     public static function create($conn, $data) {
         $login = [
             "email" => $data['email'],
-            "password" => $data['password'],
+            "senha" => $data['senha'],
         ];
 
-        $data['password'] = PasswordController::generateHash($data['password']);
+        $data['senha'] = PasswordController::generateHash($data['senha']);
         $result = ClientModel::create($conn, $data);
         if ($result) {
-            AuthController::loginClient($conn, $login);
+            AuthController::loginCliente($conn, $login);
         } else {
             return jsonResponse(['message' => 'Erro inesperado'], 400);
         }
