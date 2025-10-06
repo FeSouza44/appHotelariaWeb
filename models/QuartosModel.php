@@ -11,7 +11,7 @@ class QuartosModel{
             $data["preco"],
             $data["disponivel"]
         );
-        return $stmt->execute();
+        return $stmt->execute(ASS);
     }
 
     public static function getAll($conn) {
@@ -50,34 +50,27 @@ class QuartosModel{
         return $stmt->execute();
     }
 
-    public static function disponivel($conn, $fim, $inicio, $qtd  ){
-        $sql = "SELECT
-        q.id,
-        q.nome,
-        q.qtd_cama_casal,
-        q.qtd_cama_solteiro,
-        q.preco,
-        q.disponivel
-        FROM
-        quartos q
-        WHERE
-        id NOT IN (
-        SELECT
-        reservas.quarto_id
-        FROM
-        reservas 
-        WHERE
-        (reservas.fim > ? AND reservas.inicio < ?)
-    AND q.disponivel = 1
-    AND ( (q.qtd_cama_casal * 2) + q.qtd_cama_solteiro ) >= 3";
-    $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi",
-            $fim,
-            $inicio,
-            $qtd
-    );
-    $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
-    } 
-}
+    public static function disponivel($conn, $data){
+       $sql = " SELECT q.*,
+            (q.qtd_cama_casal * 2 + q.qtd_cama_solteiro) AS qtd
+            FROM quartos q WHERE q.disponivel = 1
+            AND (q.qtd_cama_casal * 2 + q.qtd_cama_solteiro) >= ?
+            AND q.id NOT IN (
+            SELECT r.quarto_id
+            FROM reservas r
+            WHERE r.fim > ?  
+            AND r.inicio < ?
+        );";
+ 
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss",
+            $data["qtd"],
+            $data["inicio"],
+            $data["fim"]
+        );
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+} 
+
 ?>

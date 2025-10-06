@@ -42,12 +42,12 @@
                 return jsonResponse(['message'=> 'Deu merda'], 400);
             }
         }
-        public static function disponivel($conn, $inicio, $fim, $qtd){
-            $result = QuartosModel::disponivel($conn, $inicio, $fim, $qtd);
-            if($result){
-                return jsonResponse(['message'=> 'Quartos Disponíveis:']);
+        public static function disponivel($conn, $data ){
+            $result = QuartosModel::disponivel($conn, $data);
+            if($result !== false && !empty($result)) {
+                return jsonResponse(['message'=> 'Quartos Disponíveis:', 'Quartos'=> $result]);
             }else{
-                return jsonResponse(['message'=> 'Deu merda'], 400);
+                return jsonResponse(['message'=> 'Erro na Busca'], 400);
             }
         }
 

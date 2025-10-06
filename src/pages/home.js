@@ -2,7 +2,8 @@ import Navbar from "../components/Navbar.js";
 import HeroSlide from "../components/HeroSlide.js";
 import Footer from "../components/Footer.js";
 import card from "../components/Card.js";
-import Checkin from "../components/DateSelector.js";
+import DateSelector from "../components/DateSelector.js";
+import { listAvaibleQuartosRequest} from  "../api/quartosAPI.js";
 
 export default function renderHomePage(){
     const divRoot = document.getElementById('root');
@@ -18,8 +19,23 @@ export default function renderHomePage(){
     const hero = HeroSlide();
     divRoot.appendChild(hero);
 
-    const checkin = Checkin();
-    divRoot.appendChild(checkin);   
+    const dateSelector = DateSelector();
+    divRoot.appendChild(dateSelector); 
+    
+    const btnDateSelec = dateSelector.querySelector('button');
+
+    btnDateSelec.addEventListener("click", async (evento) =>{
+        evento.preventDefault();
+        const inicio = "2025-10-05";
+        const fim = "2025-12-30";
+        const qtd = 2;
+        try{
+            const quartos = await listAvaibleQuartosRequest({inicio, fim, qtd});
+            //Após intervalo: prencher as infos dos quartos nos cards ou avisar ao cliente que nao há quarto disponivel
+        }catch(erro){
+            console.log(erro);
+        }
+    });
     
     const cardsGroup = document.createElement('div');
     cardsGroup.className = "cards";

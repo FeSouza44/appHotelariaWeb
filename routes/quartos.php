@@ -1,53 +1,50 @@
 <?php
 require_once __DIR__ . "/../controllers/QuartosController.php";
-
+ 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    
-    $data = json_decode(file_get_contents('php://input'),true);
-    $id = $data['id'] ?? null;;
-    
-    if(isset($data['inicio']) && isset($data['fim'])) {
-            $inicio = $data['inicio'];
-            $fim = $data['fim'];
-            $qtdPessoas = $data['qtdPessoas'];
-            RoomController::disponivel($conn, $inicio, $fim, $qtdPessoas);
-    if(isset($id)) {
-        QuartosController::getById($conn, $id);
-        
-
-    } else {
+    $id = $segments[2] ?? null;
+ 
+    if (isset($id)) {
+        if (is_numeric($id)) {
+            QuartosController::getById($conn, $id);
+        } else {
+            $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
+            $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
+            $qtd = isset($_GET['qtd']) ? $_GET['qtd'] : null;
+            QuartosController::disponivel($conn, ["inicio" => $inicio, "fim" => $fim, "qtd" => $qtd]);
+        }
+    }
+    else {
         QuartosController::getAll($conn);
     }
 }
+ 
 elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
-    
-
-}elseif (isset($data['nome'])){
-        QuartosController::create($conn, $data);
+    QuartosController::create($conn, $data);
 }
-
-}
+ 
 elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ) {
     $data = json_decode( file_get_contents('php://input'), true );
-    $id = $data['id'];
+    $id = $data['id'] ?? null;
     QuartosController::update($conn, $id, $data);
 }
-
+ 
 elseif ($_SERVER['REQUEST_METHOD'] === "DELETE") {
-    $id = $data['id'];
-
+    $id = $data['id'] ?? null;
+ 
     if (isset($id)) {
         QuartosController::delete($conn, $id);
     } else {
         jsonResponse(['message' => 'ID do quarto é obrigatorio'], 400);
     }
 }
-
-else {
+ 
+    else {
     jsonResponse([
         'status' => 'erro',
         'message' => 'Metodo não permitido',
     ], 400);
-}
+    }
+
 ?>
