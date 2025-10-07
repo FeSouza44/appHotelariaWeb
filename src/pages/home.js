@@ -21,14 +21,25 @@ export default function renderHomePage(){
 
     const dateSelector = DateSelector();
     divRoot.appendChild(dateSelector); 
-    
+
+    const [dateChekin, dateCheckout] = dateSelector.querySelectorAll('input[type="date"]');
+    const qtdHospedes = dateSelector.querySelector('select');
     const btnDateSelec = dateSelector.querySelector('button');
+
 
     btnDateSelec.addEventListener("click", async (evento) =>{
         evento.preventDefault();
-        const inicio = "2025-10-05";
-        const fim = "2025-12-30";
-        const qtd = 2;
+        const inicio = (dateChekin?.value || "").trim();
+        const fim = (dateCheckout?.value || "").trim();
+        const qtd = parseInt(qtdHospedes?.value || "0", 10);
+
+        if(!inicio || !fim || Number.isNaN(qtd) || qtd <= 0) {
+            console.log("Preencha todos os campos!");
+            return;
+        }
+
+        const dtInicio = new Date(inicio);
+        const dtFim = new Date(fim);
         try{
             const quartos = await listAvaibleQuartosRequest({inicio, fim, qtd});
             //Após intervalo: prencher as infos dos quartos nos cards ou avisar ao cliente que nao há quarto disponivel
