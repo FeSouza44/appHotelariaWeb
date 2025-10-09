@@ -34,6 +34,7 @@ class PedidoModel{
         $cliente_id = $data['cliente_id'];
         $pagamento = $data['pagamento'];
         $usuario_id = $data['usuario_id'];
+        $reservou = false;
 
         $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
         try {
@@ -54,11 +55,28 @@ class PedidoModel{
                     $reservas[] = "Quarto {$id} indisponivel!";
                     continue;
                 }
+                //Criar um método pra averiguar 
+                // se o quarto está disponivel 
+                // num intervalo de datas!!!!
+                $reserverModel = ReservaModel::create($conn, [
+                    ["pedido_id"]=> $pedido_id,
+                    ["quarto_id"] => $id,
+                    ["adicional_id"] => null,
+                    ["inicio"]=> $inicio,
+                    ["fim"] => $fim
+                ]);
+                $reservou = true;
             }
-            //Criar um método pra averiguar 
-            // se o quarto está disponivel 
-            // num intervalo de datas!!!!
-        
+            if($reservou == true){
+                $conn->commit();
+                return [
+                    "pedido_id" => $pedido_id,
+                    "reservas"=> $reservas,
+                    "message" => "Reserva Realizada com sucesso" 
+                ]
+            }else{
+                throw new RuntimeException("Pedido nao realizado, nenhum quarto realizado");
+            }
         } catch (Throwable $th) {
         try {
             $conn->rollback();
