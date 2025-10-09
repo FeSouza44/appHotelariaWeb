@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ ."/../controllers/PasswordController.php";
+require_once "models/PedidoModel.php";
 
 class PedidoModel{
     public static function create($conn,$data){
@@ -10,7 +11,12 @@ class PedidoModel{
         $data["cliente_id"],
         $data["pagamento"],
     );
+    $resultado = $stmt->execute();
+    if($resultado){
+        return $conn->insert_id;          
     }
+    return false;
+    } 
 
     public static function getById($conn, $id){
         $sql = "SELECT * FROM pedidos WHERE id = ?";
@@ -24,6 +30,43 @@ class PedidoModel{
         $result = $conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+     public static function createPedido($conn, $data){
+        $cliente_id = $data['cliente_id'];
+        $pagamento = $data['pagamento'];
+        $usuario_id = $data['usuario_id'];
+
+        $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+        try {
+            $pedido_id = self::create($conn,[
+                "usuario_id" => $usuario_id,
+                "cliente_id" => $cliente_id,
+                "pagamento" => $pagamento
+            ]);
+            if(!$pedido_id){
+                throw new RuntimeException("Erro ao criar o pedido.");
+            }
+            foreach($data['quartos'] as $quarto){
+                $id = $quarto["id"];
+                $inicio = $quarto["inicio"];
+                $fim = $quarto["fim"];
+
+                if(!QuartosModel::lockById($conn,$id) ){
+                    $reservas[] = "Quarto {$id} indisponivel!";
+                    continue;
+                }
+            }
+            //Criar um método pra averiguar 
+            // se o quarto está disponivel 
+            // num intervalo de datas!!!!
+        
+        } catch (Throwable $th) {
+        try {
+            $conn->rollback();
+        } catch (\Throwable $th1) {
+           throw $th;
+        }
+        }
+    }
 }
+
 ?>

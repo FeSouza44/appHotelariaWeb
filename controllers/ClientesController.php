@@ -1,6 +1,6 @@
 <?php 
 require_once __DIR__ ."/../controllers/PasswordController.php";
-require_once __DIR__ ."/../models/ClientModel.php";
+require_once __DIR__ ."/../models/ClientesModel.php";
 require_once __DIR__ ."/../helpers/token_jwt.php";
 require_once __DIR__ ."/../controllers/AuthController.php";
 
@@ -14,7 +14,7 @@ class ClientesController{
         ];
 
         $data['senha'] = PasswordController::generateHash($data['senha']);
-        $result = ClientModel::create($conn, $data);
+        $result = ClientesModel::create($conn, $data);
         if ($result) {
             AuthController::loginCliente($conn, $login);
         } else {

@@ -1,7 +1,7 @@
 <?php
 
 
-class ValidateController {
+class DataController {
 
     public static function issetData($labels, $data) {
         $missinglabels = [];

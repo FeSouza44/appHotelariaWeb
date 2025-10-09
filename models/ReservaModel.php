@@ -1,11 +1,24 @@
-<?php 
-require_once __DIR__ ."/../controllers/PasswordController.php";
-
-class ClientesModel{
-    public static function listarPorPedido($conn){
+<?php
+class ReservaModel{
+    public static function create($conn, $data) {
+        $sql = "INSERT INTO reservas (pedido_id, quarto_id, adicional_id, inicio, fim) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iiiii",
+            $data["pedido_id"],
+            $data["quarto_id"],
+            $data["adicional_id"],
+            $data["inicio"],
+            $data["fim"]
+        );
+        return $stmt->execute();
     }
 
-    public static function criar($conn){
+    public static function getByPedido($conn, $id) {
+        $sql = "SELECT * FROM reservas WHERE pedido_id= ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 }
 ?>

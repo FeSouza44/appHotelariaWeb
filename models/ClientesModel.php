@@ -1,8 +1,7 @@
 <?php 
 
 require_once __DIR__ ."/../controllers/PasswordController.php";
-class ClientModel{
-
+class PedidoModel{
 
 public static function create($conn, $data) {
     $sql = "INSERT INTO clientes (nome, email, senha, cpf, telefone) VALUES(?, ?, ?, ?, ?)";
