@@ -7,7 +7,7 @@ const routes = {
    "/login": renderLoginPage,
    "/register": renderRegisterPage,
    "/home": renderHomePage,
-   "/Car": renderCarPage
+   "/cart": renderCarPage
 }
 
 function getPath(){

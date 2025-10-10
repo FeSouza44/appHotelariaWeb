@@ -4,6 +4,7 @@ import Footer from "../components/Footer.js";
 import card from "../components/Card.js";
 import DateSelector from "../components/DateSelector.js";
 import { listAvaibleQuartosRequest} from  "../api/quartosAPI.js";
+import cardLounge from "../components/CardLounge.js";
 
 export default function renderHomePage(){
     const divRoot = document.getElementById('root');
@@ -21,6 +22,9 @@ export default function renderHomePage(){
 
     const dateSelector = DateSelector();
     divRoot.appendChild(dateSelector); 
+
+    const cardsLounge = cardLounge();
+
 
     const [dateChekin, dateCheckout] = dateSelector.querySelectorAll('input[type="date"]');
     const qtdHospedes = dateSelector.querySelector('select');
@@ -48,14 +52,27 @@ export default function renderHomePage(){
         }
     });
     
+    const loungeItem = [
+        {path: "quartoHotel.jpg",
+        title:"Restaurante",
+        text: "Nosso restaurante é um espaço agradável e familiar"
+    },
+        {title:"Restaurante",
+        text: "Nosso restaurante é um espaço agradável e familiar"
+        }   
+    
+    ];
+
+    for(let i = 0; i<loungeItem.length; i++){
+        const cardLounge= cardsLounge(loungeItem[i], i);
+        
+    }
+    pr
     const cardsGroup = document.createElement('div');
     cardsGroup.className = "cards";
 
-    for (let i=0; i < 3; i++) {
-        const cards = card(i);
-        cardsGroup.appendChild(cards);
-    }
 
+    cardsGroup.appendChild(cardsLounge);
     divRoot.appendChild(cardsGroup);
 
     const foot = document.getElementById('footer');

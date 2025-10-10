@@ -14,8 +14,7 @@ export default function renderCarPage() {
 
     const grid = Grid();
     grid.style.marginTop = '10%';
-    divRoot.appendChild(grid);
-
+    divRoot.appendChild(grid); 
 
     const foot = document.getElementById('footer');
     foot.innerHTML = '';

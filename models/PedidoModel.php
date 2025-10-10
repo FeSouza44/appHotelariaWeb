@@ -76,7 +76,7 @@ class PedidoModel{
                 ]
             }else{
                 throw new RuntimeException("Pedido nao realizado, nenhum quarto realizado");
-            }
+            }   
         } catch (Throwable $th) {
         try {
             $conn->rollback();

@@ -9,6 +9,15 @@ body {
       padding-bottom: 10vh;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;          
+    left: 0;        
+    width: 100%;    
+    z-index: 1000;  
+}
+
+
 .titulo {
     font-family: "Lato", sans-serif;
     font-weight: 700;
@@ -102,7 +111,7 @@ a {
 
 .cards {
     display: flex;
-    flex-direction: wrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 35px;
