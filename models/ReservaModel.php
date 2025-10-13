@@ -22,5 +22,12 @@ class ReservaModel{
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+    public static function isConflict($conn, $quarto_id, $inicio, $fim){
+        $sql = "SELECT * FROM reservas WHERE quarto.id = ? AND inicio < ? AND fim > ? ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss", $quarto_id, $fim, $inicio);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }
 ?>

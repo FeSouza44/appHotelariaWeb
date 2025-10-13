@@ -25,8 +25,12 @@ export default function renderHomePage(){
 
     const cardsLounge = cardLounge();
 
+    const dateToday = new Date().toISOString().split("T");
 
     const [dateChekin, dateCheckout] = dateSelector.querySelectorAll('input[type="date"]');
+    dateChekin.min = dateToday;
+    dateCheckout.min = dateToday;
+   
     const qtdHospedes = dateSelector.querySelector('select');
     const btnDateSelec = dateSelector.querySelector('button');
 
@@ -51,7 +55,14 @@ export default function renderHomePage(){
             console.log(erro);
         }
     });
-    
+
+    const cardsGroupLounge = document.createElement('div');
+    cardsGroupLounge.id = "cardsInfra";
+    const titleInfra = document.createElement('h2');
+    titleInfra.textContent = "Conheça nosso Hotel";
+    divRoot.appendChild(titleInfra);
+    titleInfra.style.textAlign = "center";
+
     const loungeItem = [
         {path: "quartoHotel.jpg",
         title:"Restaurante",
@@ -65,9 +76,10 @@ export default function renderHomePage(){
 
     for(let i = 0; i<loungeItem.length; i++){
         const cardLounge= cardsLounge(loungeItem[i], i);
+        cardsGroupLounge.appendChild(cardLounge);
         
     }
-    pr
+    
     const cardsGroup = document.createElement('div');
     cardsGroup.className = "cards";
 
