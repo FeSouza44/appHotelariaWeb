@@ -34,7 +34,38 @@ export default function renderHomePage(){
     const qtdHospedes = dateSelector.querySelector('select');
     const btnDateSelec = dateSelector.querySelector('button');
 
+    function getMinDateCheck(dateCheckin){
+        const minDaily = new Date(dateCheckin);
+        minDaily.setDate(minDaily.getDate()+ 1);
 
+        return minDaily.toISOString().split('T')[0];
+    }
+
+        dateChekin.addEventListener("change", async(e)=>{
+            //se o valor for válido
+            if(this.value){
+                const minDateCheckcout = getMinDateCheck(this.value)
+                dateCheckout.min = minDateCheckcout;
+            }
+            //se já houbver uma data de checkout selecionada e que seja inválida
+            if(dateCheckout.value && dateCheckout.value <= this.value) {
+                dateCheckout.value= "";
+                alert = ""; //fazer modal pra isso
+
+            }
+        });
+
+            // dateCheckout.addEventListener("change", async(e)=> {
+            //     if(dateChekin.value && dateCheckout.value){
+            //         const checkInValue = new Date(dateChekin.value);
+            //         const checkOutValue = new Date(dateCheckout.value);
+
+            //         if(checkOutValue <= checkInValue){
+            //             this.value= "";
+            //             alert("a data de Check-Out deve ser posterior ao Check-In!")
+            //         }
+            //     }        
+            // });
     btnDateSelec.addEventListener("click", async (evento) =>{
         evento.preventDefault();
         const inicio = (dateChekin?.value || "").trim();

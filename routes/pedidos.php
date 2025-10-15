@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ ."/../controllers/PedidosController.php";
 
 if ( $_SERVER['REQUEST_METHOD'] == "POST" ){
     $opcao = $segments[2] ?? null;
@@ -10,6 +11,8 @@ if ( $_SERVER['REQUEST_METHOD'] == "POST" ){
         PedidosController::create($conn, $data);
     }
     
-}   
+} else{
+jsonResponse(['status'=>'erro','message'=> 'Método não permitido'], 405);   
+}
 
 ?>

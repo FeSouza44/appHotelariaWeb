@@ -11,8 +11,9 @@ class PedidoModel{
         $data["cliente_id"],
         $data["pagamento"],
     );
-    $resultado = $stmt->execute();
-    if($resultado){
+    
+        $resultado = $stmt->execute();
+        if($resultado){
         return $conn->insert_id;          
     }
     return false;
@@ -58,6 +59,11 @@ class PedidoModel{
                 //Criar um método pra averiguar 
                 // se o quarto está disponivel 
                 // num intervalo de datas!!!!
+                    if(!QuartosModel::lockById($conn, $id)) {
+                        $reservas[] = "Quarto {$id} já está reservado!";
+                        continue;
+                    }
+
                 $reserverModel = ReservaModel::create($conn, [
                     ["pedido_id"]=> $pedido_id,
                     ["quarto_id"] => $id,
@@ -73,8 +79,9 @@ class PedidoModel{
                     "pedido_id" => $pedido_id,
                     "reservas"=> $reservas,
                     "message" => "Reserva Realizada com sucesso" 
-                ]
-            }else{
+                ];
+            }
+            else{
                 throw new RuntimeException("Pedido nao realizado, nenhum quarto realizado");
             }   
         } catch (Throwable $th) {
