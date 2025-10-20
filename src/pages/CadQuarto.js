@@ -1,3 +1,5 @@
-export default function CadQuarto(){
+import FormRoom from "../components/FormsQuarto.js";
 
+export default function RenderRegisterRoom() {
+    FormRoom();
 }

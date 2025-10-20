@@ -2,11 +2,10 @@ body {
     background-color: #ccc;
 }
 
-
 #root {
     flex-direction: column;
     gap: 45px;
-      padding-bottom: 10vh;
+    padding-bottom: 10vh;
 }
 
 .navbar {
@@ -69,16 +68,6 @@ a {
 }
 
 
-/* .card {
-    width: 18rem; /* Mantém o tamanho fixo definido no card.js */
-    /* display: flex; */
-    /* flex-direction: column; Garante que o conteúdo interno do card seja empilhado verticalmente */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* padding: 10px; */
-    /* box-sizing: border-box; Evita que padding/margem aumentem o tamanho */
-    /* flex-wrap: wrap; Permite que os cards quebrem para a próxima linha em telas menores */
-/* } */
 
 .divDateSelector {
     display: flex;
@@ -122,3 +111,15 @@ a {
     object-position: center;
     height: 20vh;
 }
+
+
+/* .card {
+    width: 18rem; /* Mantém o tamanho fixo definido no card.js */
+    /* display: flex; */
+    /* flex-direction: column; Garante que o conteúdo interno do card seja empilhado verticalmente */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* padding: 10px; */
+    /* box-sizing: border-box; Evita que padding/margem aumentem o tamanho */
+    /* flex-wrap: wrap; Permite que os cards quebrem para a próxima linha em telas menores */
+/* } */

@@ -28,15 +28,19 @@
             foreach($data['quartos'] as $quarto){
                 ValidatorController::validate_data($quarto,["id", "inicio", "fim"]);
             }
+
             if(count($data['quartos']) ==0){
                 return jsonResponse(['message'=> 'Não existe reservas'], 400);
             }
+            
             try{
                 $resultado = PedidoModel::createPedido($conn, $data);
                 return jsonResponse(['message'=> $resultado]);
-            }catch(\Throwable $erro){
+            }
+            catch(\Throwable $erro){
                 return jsonResponse(['message'=>$erro->getMessage()]);
             }
+            
         }
 }
 ?>
