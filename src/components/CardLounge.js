@@ -1,3 +1,18 @@
+function calculoDiarias(checkIn, checkOut){
+  const checkIn = "2026-01-01";
+  const checkOut = "2026-01-08";
+
+  const [yi, mi, di] = String(checkIn).split("-").map(Number);
+  const [yout, mout, dout] = String(checkOut).split("-").map(Number);
+  
+  const tzin = Date.UTC(yi,mi -1,di);
+  const tzout = Date.UTC(yout, mout -1, dout);
+
+  console.log("tzin"+ "tzout")
+ 
+  return Math.floor((tzin- tzout) /(100*60*60*24));
+}
+
 export default function cardLounge(cardLoungeitem, index){
   const{ path,
      title,
@@ -22,4 +37,6 @@ export default function cardLounge(cardLoungeitem, index){
 </div>
 `
 return cardLounge;
+
+calculoDiarias();
 }
