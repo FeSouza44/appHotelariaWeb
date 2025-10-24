@@ -2,12 +2,14 @@ import renderLoginPage from "./pages/login.js";
 import renderRegisterPage from "./pages/register.js";
 import renderHomePage from "./pages/home.js";
 import renderCarPage from "./pages/Car.js";
+import RenderRegisterRoom from "./pages/CadQuarto.js";
 
 const routes = {
    "/login": renderLoginPage,
-   "/register": renderRegisterPage,
+   "/cadastro": renderRegisterPage,
    "/home": renderHomePage,
-   "/cart": renderCarPage
+   "/carrinho": renderCarPage,
+   "/quartos": RenderRegisterRoom
 }
 
 function getPath(){

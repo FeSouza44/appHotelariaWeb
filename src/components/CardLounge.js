@@ -1,6 +1,4 @@
 function calculoDiarias(checkIn, checkOut){
-  const checkIn = "2026-01-01";
-  const checkOut = "2026-01-08";
 
   const [yi, mi, di] = String(checkIn).split("-").map(Number);
   const [yout, mout, dout] = String(checkOut).split("-").map(Number);

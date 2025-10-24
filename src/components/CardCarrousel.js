@@ -1,37 +1,29 @@
-export function CarrouselCard(index){
-    const divCarrouselCard = document.createElement('div');
-    divCarrouselCard.className = "carousel-item";
-    divCarrouselCard.innerHTML = `
-    
-    <div class = "heroContainer-frame w-100">
-
-    <div id="carouselExampleIndicators${index}" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-
+export default function CardLounge(cardLoungeItem, index) {
+    const {
+        path,
+        title,
+        text
+    } = cardLoungeItem || {}
+    const cardLounge = document.createElement('div');
+    cardLounge.innerHTML = `
+    <div class="card" style="width: 18rem; height: 17rem;">
+        <img src="public/assets/images/${path}" style="height: 15rem"
+        class="card-img-top" alt="...">
+        <div class="btn-group dropup">
+            <button type="button" class="btn"
+            data-bs-toggle="dropdown"
+            aria-expanded="false" style="border: none";>
+                <img src="public/assets/images/caret-up-fill.svg"
+                width="20" height="20">
+               <h3 class="card-text" style="font-size: 1rem;
+               font-weight: 700;">${title}</h3>
+            </button>
+            <ul class="dropdown-menu"
+            style="border-radius: 0.375rem 0.375rem 0 0;">
+                 <p class="card-text" style="text-align: center";>${text}</p>
+            </ul>
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="public/assets/images/CardQuarto2.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="public/assets/images/CardQuarto3.jpg" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${index}" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators${index}" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-  </div>
-</div>`;
-
-return divCarrouselCard;
+    `
+    return cardLounge;
 }

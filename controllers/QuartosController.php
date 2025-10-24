@@ -6,13 +6,24 @@
         public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco'];
 
         public static function create($conn, $data){
-            $result = QuartosModel::create($conn, $data);
-            if($result){
-                return jsonResponse(['message'=> 'Quarto criado com sucesso']);
-            }else{
-            return jsonResponse(['message'=> 'Deu merda'], 400);
+        ValidatorController::validate_data($data, ["nome", "numero", "qtd_casal", "qtd_solteiro", "preco", "disponivel"]);
+
+        $result = QuartosModel::create($conn, $data);
+        if ($result){
+            if ($data['fotos']){
+                $pictures = UploadController::uploadImagem($data['fotos']);
+                foreach($pictures['saves'] as $name){
+                    $idPhoto = FotosModel::create($conn, $name['name']);
+                    if ($idPhoto){
+                        FotosModel::createRelationRoom($conn, $result, $idPhoto);
+                    }
+                }
             }
+            return jsonResponse(['message'=>"Quarto criado com sucesso"]);
+        }else{
+            return jsonResponse(['message'=>"Erro ao criar o quarto"], 400);
         }
+    }
         
         public static function getAll($conn) {
             $roomList = QuartosModel::getAll($conn);
@@ -44,10 +55,13 @@
         }
         public static function disponivel($conn, $data ){
             $result = QuartosModel::disponivel($conn, $data);
-            if($result !== false && !empty($result)) {
-                return jsonResponse(['message'=> 'Quartos Disponíveis:', 'Quartos'=> $result]);
+            if($result){
+                foreach($result as $quarto) {
+                    $quarto['fotos'] = FotosModel::getById($conn, $quarto['id']);
+                }
+                return jsonResponse(['Quartos'=> $result]);
             }else{
-                return jsonResponse(['message'=> 'Erro na Busca'], 400);
+                return jsonResponse(['message'=> 'Não temos Quartos Disponívek'], 400);
             }
         }
 
