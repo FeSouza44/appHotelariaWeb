@@ -25,7 +25,7 @@ export default function Navbar() {
                     Cadastrar
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Quarto</a></li>
+                    <li><a class="dropdown-item" href="quartos">Quarto</a></li>
                     <li><a class="dropdown-item" href="#">Adicional</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -34,7 +34,7 @@ export default function Navbar() {
 
 
                 <li class="nav-item">
-                <a class="nav-link" href="register">Cadastre-se</a>
+                <a class="nav-link" href="cadastro">Cadastre-se</a>
                 </li>
 
                 <li class="nav-item">
@@ -44,7 +44,7 @@ export default function Navbar() {
             </ul>
                 <div class="cartDiv">
                     <i class="bi bi-cart-check">
-                    <a href="cart"> <img src="public/assets/images/cart-check.svg" width="25"
+                    <a href="carrinho"> <img src="public/assets/images/cart-check.svg" width="25"
                     </i>
                 </div>
 
