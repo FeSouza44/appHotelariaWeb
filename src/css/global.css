@@ -112,14 +112,25 @@ a {
     height: 20vh;
 }
 
+.divCard{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 75xpx;
+}
 
-/* .card {
-    width: 18rem; /* Mantém o tamanho fixo definido no card.js */
-    /* display: flex; */
-    /* flex-direction: column; Garante que o conteúdo interno do card seja empilhado verticalmente */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* padding: 10px; */
-    /* box-sizing: border-box; Evita que padding/margem aumentem o tamanho */
-    /* flex-wrap: wrap; Permite que os cards quebrem para a próxima linha em telas menores */
-/* } */
+.cardGroupInfra {
+    display: flex;
+    gap: 5%;
+    justify-content: center;
+}
+
+.card {
+    width: 18rem; /*Mantém o tamanho fixo definido no card.js */
+     display: flex; 
+    flex-direction: column; /*Garante que o conteúdo interno do card seja empilhado verticalmente */
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px; 
+    box-sizing: border-box; /*Evita que padding/margem aumentem o tamanho */
+    flex-wrap: wrap; /*Permite que os cards quebrem para a próxima linha em telas menores*/
+}

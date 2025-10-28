@@ -2,27 +2,35 @@
 de pagina e nao tenha "re-logar" */
 
 // Listar os quartos disponiveis de acordo com o inicio fim e quantidade
-export async function addRoom(contentForms) {
-    const formData = new FormData(contentForms);
+export async function addRoom(contentForm) {
+    const formData = new FormData(contentForm);
     const typeAccept = ['image/jpeg', 'image/png'];
-    const inputFotos = contentForms.querySelector('#formFileMultiple');
+    const inputFotos = contentForm.querySelector('#formFileMultiple');
     const imgs = inputFotos.files;
-    for(let i = 0; i < imgs.length; i++){
-        if(!typeAccept.include(imgs[i].type)) {
-            throw new Error (`Arquivo ${imgs[i].name}"Não é suportdo.
-            selecione um arquivo JPG ou png"`);
-        } 
-    }
+    for (let i = 0; i < imgs.length; i++) {
+        if(!typeAccept.includes(imgs[i].type)) {
+            throw new Error(`Arquivo "${imgs[i].name}" não é suportado.
+            Selecione um arquivo JPG ou PNG`);
+        }}
     const url = `api/quartos`;
     const response = await fetch(url, {
-        method: "POST", 
+        method: "POST",
         body: formData
     });
+    // Interpreta a resposta como JSON
+    let result = null;
+    try {
+        result = await response.json();
+    }
+    catch {
+        // Se não for JSON válido, result permanece null
+        result = null;
+    }
     if(!response.ok) {
-
         throw new Error(`Erro ao enviar requisição: ${response.status}`);
     }
-}
+    return result; }  
+
 
 export async function listAvaibleQuartosRequest({ inicio, fim, qtd }){
     // Retorna o valor do token armazenado (que comprova a autenticação do usuario)

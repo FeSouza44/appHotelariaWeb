@@ -18,7 +18,7 @@ class ValidatorController{
 
     public static function fix_dateHour($date, $hour){
         $datehour = new DateTime($date);
-        $datehour->setTime(hour, 0, 0);
+        $datehour->setTime($hour, 0, 0);
         return $datehour->format ('Y-m-d H:i:s');
     }
 }

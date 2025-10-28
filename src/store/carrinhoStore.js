@@ -3,7 +3,6 @@
     mais reservas ao mesmo pedido -> finaliza pedido;
     (pedido armazendo como rascunho no localstorage: getItem() para obter dados, setItem()
     */
-
 const key = "GHR_cart"
 
 export default function setCart(cart){
@@ -15,7 +14,7 @@ export function getCart(){
         const raw = localStorage.getItem(key);
         return raw ? JSON.parse(raw) : { status: "draft", items: []};
     }catch{ 
-        return {status: "draft", items: []};
+        return {items: []};
     }
 }
 

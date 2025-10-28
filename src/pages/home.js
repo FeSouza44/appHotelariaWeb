@@ -4,6 +4,8 @@ import DataSelector from "../components/DateSelector.js";
 import { listAvaibleQuartosRequest } from "../api/quartosAPI.js";
 import CardLounge from "../components/CardLounge.js";
 import HeroSlide from "../components/HeroSlide.js";
+import CardQuarto from "../components/Card.js";
+
 
 export default function renderHomePage() { 
     const nav = document.getElementById('navbar');
@@ -81,7 +83,7 @@ export default function renderHomePage() {
             }
             divCard.innerHTML = '';
             quartos.forEach((itemCard, i) => {
-                divCard.appendChild(RoomCard(itemCard, i));
+                divCard.appendChild(CardQuarto(itemCard, i));
             });
             //Após intervalo: prencher as infos dos quartos nos cards ou avisar ao cliente que nao há quarto disponivel
         }catch(erro){

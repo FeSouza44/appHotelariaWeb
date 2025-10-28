@@ -32,19 +32,21 @@ class FotosModel{
         return $stmt->execute();
     }
 
-     public static function searchById($conn, $id) {
-        $sql = "SELECT f.nome 
-        FROM imagens WHERE id= ?";
-        
+     public static function getByRoomId($conn, $id) {
+        $sql = "SELECT i.nome
+        FROM foto f
+        JOIN imagens i ON f.imagem_id = i.id
+        WHERE f.quarto_id = ?";
+ 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
-        $result = $stmt->execute();
-        
-        $fotos = [];
-        while( $row = $result->fetch_assoc()){
-            $fotos[] = $row['nome'];
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $photos = [];
+        while ($row = $result->fetch_assoc()){
+            $photos[] = $row['nome'];
         }
-        return $fotos;
+        return $photos;
     }
 
     public static function createRelationRoom($conn, $idRoom, $idPhoto){

@@ -1,9 +1,11 @@
 <?php
     require_once __DIR__ . "/../models/QuartosModel.php";
+    require_once __DIR__ . "/ValidatorController.php";
+    require_once __DIR__ . "/../models/FotosModel.php";
+    
 
     class QuartosController{
 
-        public static $labels = ['nome', 'numero', 'qtd_cama_casal', 'qtd_cama_solteiro', 'preco'];
 
         public static function create($conn, $data){
         ValidatorController::validate_data($data, ["nome", "numero", "qtd_casal", "qtd_solteiro", "preco", "disponivel"]);
@@ -54,14 +56,19 @@
             }
         }
         public static function disponivel($conn, $data ){
+           ValidatorController::validate_data($data, ["inicio", "fim", "qtd"]);
+
+            $data["inicio"] = ValidatorController::fix_dateHour($data["inicio"], 14);
+            $data["fim"] = ValidatorController::fix_dateHour($data["fim"], 12);
+            
             $result = QuartosModel::disponivel($conn, $data);
             if($result){
-                foreach($result as $quarto) {
+                foreach ($result as &$quarto) {
                     $quarto['fotos'] = FotosModel::getById($conn, $quarto['id']);
                 }
                 return jsonResponse(['Quartos'=> $result]);
             }else{
-                return jsonResponse(['message'=> 'Não temos Quartos Disponívek'], 400);
+                return jsonResponse(['message'=> 'não tem quartos disponiveis'], 400);
             }
         }
 

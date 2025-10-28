@@ -1,4 +1,4 @@
-import { addItemToCart } from "../store/carrinhoStore";
+import { addItemToCart } from "../store/carrinhoStore.js";
 
 function calculoDiarias(checkIn, checkOut){
     // const checkIn = "2026-01-01";
@@ -45,15 +45,15 @@ export default function CardQuarto(itemCard, index= 0){
 
             <div class="carousel-inner shadow">
                 <div class="carousel-item active">
-                    <img src="public/assets/img/fachada.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/images/CardQuarto.jpg" class="d-block w-100" alt="...">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="public/assets/img/hall.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/images/lobbyHotel.jpg" class="d-block w-100" alt="...">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="public/assets/img/quarto.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/images/hotelEntrada.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
 
