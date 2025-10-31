@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/../controllers/AdicionaisController.php";
+require_once __DIR__ . "/../helpers/token_jwt.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $id = $data['id'] ?? null;
@@ -12,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 }
 
 elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
+    validateTokenAPI("Usuario");
     $data = json_decode(file_get_contents('php://input'), true);
     AdicionaisController::create($conn, $data);
 }

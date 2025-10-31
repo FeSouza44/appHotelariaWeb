@@ -20,17 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 }
  
 elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
+    validateTokenAPI("Usuario");
+
     $data = json_decode(file_get_contents('php://input'), true);
     QuartosController::create($conn, $data);
 }
  
 elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ) {
+    validateTokenAPI("Usuario");
     $data = json_decode( file_get_contents('php://input'), true );
     $id = $data['id'] ?? null;
     QuartosController::update($conn, $id, $data);
 }
  
 elseif ($_SERVER['REQUEST_METHOD'] === "DELETE") {
+    validateTokenAPI("admin");
     $id = $data['id'] ?? null;
  
     if (isset($id)) {

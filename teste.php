@@ -5,12 +5,13 @@ require_once __DIR__ ."/helpers/token_jwt.php";
 require_once __DIR__ ."/controllers/QuartosController.php";
 
 
-$data = [
-    "inicio"=> "2025-09-24 14:00",
-    "fim"=> "2025-09-25 12:00"
-];
+// $data = [
+//     "inicio"=> "2025-09-24 14:00",
+//     "fim"=> "2025-09-25 12:00"
+// ];
 
-$inicio = $data['inicio'];
-$fim = $data['fim'];
-QuartosController::disponivel($conn,$inicio, $fim, $qtdPessoas);
+// $inicio = $data['inicio'];
+// $fim = $data['fim'];
+// QuartosController::disponivel($conn,$inicio, $fim, $qtdPessoas);
+// echo PasswordController::generateHash("1234");
 ?>

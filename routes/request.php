@@ -7,8 +7,7 @@
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
 
-        if (isset($id)) {
-            RequestController::getById($conn, $id);
+        if (isset($id)) {            RequestController::getById($conn, $id);
         } else {
             RequestController::getAll($conn);
         }

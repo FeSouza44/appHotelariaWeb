@@ -3,27 +3,23 @@ require_once __DIR__ ."/../controllers/PasswordController.php";
 
 class AdicionalModel{
     public static function create($conn, $data) {
-        $sql = "INSERT INTO quartos (nome, numero, qtd_cama_casaL, qtd_cama_solteiro, preco, disponivel) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO adicionais (nome, preco) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidi",
+        $stmt->bind_param("sd",
             $data["nome"],
-            $data["numero"],
-            $data["qtd_cama_casal"],
-            $data["qtd_cama_solteiro"],
-            $data["preco"],
-            $data["disponivel"]
+            $data["preco"]
         );
         return $stmt->execute();
     }
 
     public static function getAll($conn) {
-        $sql = "SELECT * FROM quartos";
+        $sql = "SELECT * FROM adicionais";
         $result = $conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public static function getById($conn, $id) {
-        $sql = "SELECT * FROM quartos WHERE id= ?";
+        $sql = "SELECT * FROM adicionais WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -31,22 +27,17 @@ class AdicionalModel{
     }
 
     public static function delete($conn, $id) {
-        $sql = "DELETE FROM quartos WHERE id= ?";
+        $sql = "DELETE FROM adicionais WHERE id= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
 
     public static function update($conn, $id, $data) {
-        $sql = "UPDATE quartos SET nome=?, numero=?, qtd_cama_casal=?, qtd_cama_solteiro=?, preco=?, disponivel=? WHERE id= ?";
+        $sql = "UPDATE adicionais SET nome=?, preco=? WHERE id= ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidii",
-            $data["nome"],
-            $data["numero"],
-            $data["qtd_cama_casal"],
-            $data["qtd_cama_solteiro"],
-            $data["preco"],
-            $data["disponivel"],
+        $stmt->bind_param("sd",
+            $data["nome"],$data["preco"],
             $id
         );
         return $stmt->execute();

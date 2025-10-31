@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . "/../models/UserModel.php";
+    require_once __DIR__ . "/../models/ClientesModel.php";
     require_once "PasswordController.php";
     require_once __DIR__ . "/../helpers/token_jwt.php";
 
@@ -7,10 +8,10 @@
         public static function loginUsuario($conn, $data){
 
             $data['email'] = trim($data['email']);
-            $data['password'] = trim($data['password']);
-
+            $data['senha'] = trim($data['senha']);
+            
             //Verificar campos vazios
-            if (empty($data['email']) || empty($data['password'])) {
+            if (empty($data['email']) || empty($data['senha'])) {
                 return jsonResponse([
                     "status"=>"erro",
                     "message"=>"Preencha todos os campos!"
@@ -18,7 +19,7 @@
             }
 
             //Valida a informação
-            $user = UserModel::validateUser($conn, $data['email'], $data['password']);
+            $user = UserModel::validateUser($conn, $data['email'], $data['senha']);
             if ($user) {
                 $token = createToken($user);
                 return jsonResponse(["token" => $token]);
@@ -28,20 +29,24 @@
                     "message"=>"Credenciais invalidas"
                 ], 401);
             }
-
         }
 
-    public static function loginCliente($conn, $data){
-        $data['email'] = trim($data['email']);
-        $data['senha'] = trim($data['senha']);
+        public static function loginCliente($conn, $data){
+            $data['email'] = trim($data['email']);
+            $data['senha'] = trim($data['senha']);
+    
+            if (empty($data['email']) || empty($data['senha'])) {
+                return null; 
+            }
+    
+            $client = ClientesModel::validateClient($conn, $data['email'], $data['senha']);
+            if ($client) {
+                $client['role'] = 'client'; 
+                return $client; 
+            } 
 
-        // Confirma se tem algum campo vazio
-        if (empty($data['email']) || empty($data['senha'])){
-            return jsonResponse([
-                "status"=>"erro",
-                "message"=>"Preencha todos os campos!"
-            ], 401);
+            return null;
+        
         }
-    }
     }
 ?>

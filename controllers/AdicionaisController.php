@@ -3,7 +3,8 @@
 
     class AdicionaisController{
         public static function create($conn, $data){
-            $result = AdicionaisModel::create($conn, $data);
+
+            $result = AdicionalModel::create($conn, $data);
             if($result){
                 return jsonResponse(['message'=> 'Adicional criado com sucesso']);
             }else{
@@ -12,17 +13,17 @@
         }
         
         public static function getAll($conn) {
-            $list = AdicionaisModel::getAll($conn);
+            $list = AdicionalModel::getAll($conn);
             return jsonResponse($list);
         }
 
         public static function getById($conn, $id) {
-            $result = AdicionaisModel::getById($conn, $id);
+            $result = Adicionalodel::getById($conn, $id);
             return jsonResponse($result);
         }
 
         public static function delete($conn, $id){
-            $result = AdicionaisModel::delete($conn, $id);
+            $result = AdicionalModel::delete($conn, $id);
             if($result){
                 return jsonResponse(['message'=> 'Adicional deletado com sucesso']);
             }else{
@@ -31,7 +32,9 @@
         }
 
         public static function update($conn, $id, $data){
-            $result = AdicionaisModel::update($conn, $id, $data);
+                validateTokenAPI("Usuario");
+
+            $result = AdicionalModel::update($conn, $id, $data);
             if($result){
                 return jsonResponse(['message'=> 'Adicional atualizado com sucesso']);
             }else{

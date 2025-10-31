@@ -1,7 +1,7 @@
 <?php 
 
 require_once __DIR__ ."/../controllers/PasswordController.php";
-class PedidoModel{
+class ClientesModel{
 
 public static function create($conn, $data) {
     $sql = "INSERT INTO clientes (nome, email, senha, cpf, telefone) VALUES(?, ?, ?, ?, ?)";
@@ -62,7 +62,7 @@ public static function update($conn, $id, $data) {
                 cargos.nome AS cargo 
                 FROM clientes
                 INNER JOIN cargos
-                ON cargos.id = clientes.cargo_id
+                ON cargos.id = clientes.fk_cargo
                 WHERE clientes.email = ?
                 ;";
 
@@ -72,7 +72,7 @@ public static function update($conn, $id, $data) {
         $result = $stmt->get_result();
 
         if ($user = $result->fetch_assoc()){
-            if(PasswordController::validateHash($password, $user['senha'])){
+            if(PasswordController::verifyHash($password, $user['senha'])){
                 unset($user['senha']);
                 return $user;
             }
